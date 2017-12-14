@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>KUSHAL</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+<body>
+<div ng-controller="AppCtrl">
+    <h1 style="text-align: center;">FD</h1>
+    <label>Start Date:</label>
+    <input ng-model="qstdt" id="qstdt">
+    <label>End Date:</label>
+    <input ng-model="qedt" id="qedt">
+    <button class="btn btn-primary" ng-click="query()">Query</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>SN</th>
+            <th>Dt of Pr</th>
+            <th>Pr. Amt</th>
+            <th>Dt of Mt.</th>
+            <th>Mt.Amt</th>
+            <th>In Detail</th>
+            <th>Bank Detail</th>
+            <th>Cert. No</th>
+            <th>Name</th>
+            <th>Gain</th>
+            <th ng-show="hdt">15H dt</th>
+            <th>Remark</th>
+            <th>Action</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tr>
+            <td></td>
+            <td><input class="form-control" ng-model="fd.dtpr" id="dtpr"></td>
+            <td><input class="form-control" ng-model="fd.amtpr" id="amtpr"></td>
+            <td><input class="form-control" ng-model="fd.dtmt" id="dtmt"></td>
+            <td><input class="form-control" ng-model="fd.amtmt" id="amtmt"></td>
+            <td><input class="form-control" ng-model="fd.detail" id="detail"></td>
+            <td><input class="form-control" ng-model="fd.bank" id="bank"></td>
+            <td><input class="form-control" ng-model="fd.certi" id="certi"></td>
+
+            <td><input class="form-control" ng-model="fd.name" id="name"></td>
+            <td></td>
+            <td ng-show="hdt"></td>
+            <td><input class="form-control" ng-model="fd.remark" id="remark"></td>
+
+            <td><button class="btn btn-primary" ng-click="add ? addfd():updatefd(fd._id)">{{action}}</button></td><td><button class="btn btn-info" ng-click="clear()">Clear</button></td>
+        </tr>
+        <tr ng-repeat="fd in fdlist | orderBy:['dtpr'] track by $index" ng-show="qry[$index]">
+            <td>{{$index + 1}}</td>
+            <td>{{fd.dtpr}}</td>
+            <td>{{fd.amtpr}}</td>
+            <td>{{fd.dtmt}}</td>
+            <td>{{fd.amtmt}}</td>
+            <td>{{fd.detail}}</td>
+            <td>{{fd.bank}}</td>
+            <td>{{fd.certi}}</td>
+            <td>{{fd.name}}</td>
+            <td>{{fd.gain}}</td>
+            <td>{{fd.remark}}</td>
+            <td><button class="btn btn-danger" ng-click="deletefd(fd._id)">Delete</button></td>
+            <td><button class="btn btn-warning" ng-click="editfd(fd._id)">Edit</button></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+<script src="javascripts/controller.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#dtpr").datepicker();
+        $('#dtmt').datepicker();
+        $('#qstdt').datepicker();
+        $('#qedt').datepicker();
+    });
+</script>
+</html>
